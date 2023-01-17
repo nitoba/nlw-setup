@@ -21,55 +21,31 @@ model Habit {
   @@map("habits")
 }
 
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-  @@map("accounts")
-}
-
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@map("sesssions")
-}
-
 model User {
-  id    String  @id @default(cuid())
-  name  String?
-  email String? @unique
-  image String?
+  id         String   @id @default(cuid())
+  name       String?
+  email      String?  @unique
+  avatar_url String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   habits Habit[]
 
   accounts Account[]
-  sessions Session[]
 
   @@map("users")
 }
 
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
+model Account {
+  id            String  @id @default(cuid())
+  user_id       String
+  provider      String
+  access_token  String?
+  refresh_token String?
+  expires_at    Int?
 
-  @@unique([identifier, token])
-  @@map("verification_token")
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([provider])
+  @@map("accounts")
 }

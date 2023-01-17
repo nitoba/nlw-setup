@@ -6,4 +6,8 @@
   body * {
     font-family: 'Inter', sans-serif;
   }
+
+  body {
+    @apply bg-[#09090A] antialiased text-white;
+  }
 }

@@ -16,7 +16,35 @@ export const authOptions: AuthOptions = {
         params: { scope: Object.values(SCOPES).join(' ') },
       },
     }),
-    // ...add more providers here
   ],
+
+  callbacks: {
+    async signIn({ user, account }) {
+      if (user) {
+        const response = await fetch(`${process.env.BASE_URL}/auth/register`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            user: {
+              name: user.name,
+              email: user.email,
+              avatar_url: user.image,
+            },
+            account: {
+              provider: account?.provider,
+              access_token: account?.access_token,
+              refresh_token: account?.refresh_token,
+              expires_at: account?.expires_at,
+            },
+          }),
+        })
+
+        return response.status === 201
+      }
+      return false
+    },
+  },
 }
 export default NextAuth(authOptions)

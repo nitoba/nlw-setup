@@ -1,14 +1,11 @@
 import cors from '@fastify/cors'
 import Fastify from 'fastify'
-import { initContainer } from '../config/container'
-
-const { controller } = initContainer()
+import { Router } from './routes'
 
 const app = Fastify()
 
 app.register(cors)
-
-app.get('/get-all-habits', (req, res) => controller.getAll(req, res))
+Router(app)
 
 const PORT = 3333
 

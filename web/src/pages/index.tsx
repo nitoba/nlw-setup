@@ -1,4 +1,8 @@
+// eslint-disable-next-line camelcase
+import { unstable_getServerSession } from 'next-auth/next'
 import Head from 'next/head'
+import { GetServerSideProps } from 'next/types'
+import { authOptions } from './api/auth/[...nextauth]'
 
 export default function Home() {
   return (
@@ -12,4 +16,23 @@ export default function Home() {
       <h1>Hello word</h1>
     </>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const session = await unstable_getServerSession(ctx.req, ctx.res, authOptions)
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: {
+      session,
+    },
+  }
 }
