@@ -7,8 +7,6 @@
     "dev": "tsx watch src/infra/http/server.ts",
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "prepare": "husky install",
-    "commit": "git-cz",
     "lint": "eslint src --ext .tsx,.ts",
     "lint:fix": "npm run lint -- --fix"
   },
@@ -33,14 +31,5 @@
     "tsx": "^3.12.2",
     "typescript": "^4.9.4",
     "vitest": "^0.27.1"
-  },
-  "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown",
-    "src/**": "npm run lint:fix"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   }
 }
