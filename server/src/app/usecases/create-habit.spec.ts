@@ -16,6 +16,7 @@ describe('Create Habit Usecase', () => {
     const habit = await sut.execute({
       title: 'Beber 2L de água',
       weekDays: [0, 1, 2, 3, 4, 5, 6],
+      userId: 'random-user-id',
     })
 
     const today = dayjs().startOf('day').toDate()
@@ -31,6 +32,7 @@ describe('Create Habit Usecase', () => {
       sut.execute({
         title: 'Beber 2L de água',
         weekDays: [],
+        userId: 'random-user-id',
       }),
     ).rejects.toThrowError('Week days cannot be empty')
   })
