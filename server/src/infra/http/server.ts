@@ -10,8 +10,9 @@ const app = Fastify()
 const JWT_SECRET = process.env.JWT_SECRET as string
 
 app.register(cors)
-Router(app)
 app.register(FastifyJwt, { secret: JWT_SECRET })
+
+Router(app)
 
 const PORT = 3333
 

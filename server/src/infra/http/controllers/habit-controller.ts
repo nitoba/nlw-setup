@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-constructor */
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { z } from 'zod'
+import { z, ZodError } from 'zod'
 import { CreateHabit } from '../../../app/usecases/create-habit'
 import { GetAllHabits } from '../../../app/usecases/get-all-habits'
 import { HabitPresenter } from '../presenter/habit-to-view'
@@ -36,8 +36,12 @@ export class HabitController {
       if (habit) {
         return res.status(201).send(HabitPresenter.toView(habit))
       }
-    } catch (error: any) {
-      return res.status(400).send({ error: error.message })
+    } catch (error) {
+      if (error instanceof ZodError) {
+        return res.status(400).send({ message: error.message })
+      }
+
+      return res.status(500).send({ message: 'Internal Server Error' })
     }
   }
 }
