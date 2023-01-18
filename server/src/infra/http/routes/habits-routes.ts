@@ -7,5 +7,6 @@ export const HabitRoutes = async (
   app: FastifyInstance,
   ops: FastifyPluginOptions,
 ) => {
-  app.get('/all', (req, res) => habitController.getAll(req, res))
+  app.get('/', (req, res) => habitController.getAll(req, res))
+  app.post('/', (req, res) => habitController.create(req, res))
 }

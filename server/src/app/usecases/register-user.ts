@@ -13,5 +13,7 @@ export class RegisterUser {
     const createdUser = await this.repository.registerUser({ user, account })
 
     if (createdUser === null) throw new Error('User already registered')
+
+    return createdUser
   }
 }

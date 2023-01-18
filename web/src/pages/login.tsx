@@ -2,7 +2,7 @@ import { Button } from '@/components/Button'
 import Head from 'next/head'
 import { GoogleLogo } from 'phosphor-react'
 import { signIn } from 'next-auth/react'
-import { authOptions } from './api/auth/[...nextauth]'
+import { buildNextAuthOptions } from './api/auth/[...nextauth]'
 import { GetServerSideProps } from 'next'
 // eslint-disable-next-line camelcase
 import { unstable_getServerSession } from 'next-auth/next'
@@ -37,8 +37,12 @@ export default function Login() {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const session = await unstable_getServerSession(ctx.req, ctx.res, authOptions)
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await unstable_getServerSession(
+    req,
+    res,
+    buildNextAuthOptions(req, res),
+  )
 
   if (session) {
     return {

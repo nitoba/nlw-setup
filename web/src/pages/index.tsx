@@ -2,7 +2,7 @@
 import { unstable_getServerSession } from 'next-auth/next'
 import Head from 'next/head'
 import { GetServerSideProps } from 'next/types'
-import { authOptions } from './api/auth/[...nextauth]'
+import { buildNextAuthOptions } from './api/auth/[...nextauth]'
 
 export default function Home() {
   return (
@@ -18,8 +18,12 @@ export default function Home() {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const session = await unstable_getServerSession(ctx.req, ctx.res, authOptions)
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await unstable_getServerSession(
+    req,
+    res,
+    buildNextAuthOptions(req, res),
+  )
 
   if (!session) {
     return {

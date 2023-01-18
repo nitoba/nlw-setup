@@ -4,5 +4,5 @@ import { HabitRoutes } from './habits-routes'
 
 export function Router(app: FastifyInstance) {
   app.register(AuthRoutes, { prefix: '/auth' })
-  app.register(HabitRoutes, { prefix: '/habit' })
+  app.register(HabitRoutes, { prefix: '/habits' })
 }

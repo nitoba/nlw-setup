@@ -10,7 +10,7 @@ export class InMemoryAuthRepository implements AuthRepository {
   async registerUser({
     user,
     account,
-  }: RegisterUserRequest): Promise<void | null> {
+  }: RegisterUserRequest): Promise<User | null> {
     const userAlreadyRegistered = this.users.findIndex(
       (userInArray) => userInArray.email === user.email,
     )
@@ -38,5 +38,7 @@ export class InMemoryAuthRepository implements AuthRepository {
         expires_at: account.expires_at,
       }),
     )
+
+    return this.users[0]
   }
 }

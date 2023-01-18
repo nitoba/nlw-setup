@@ -5,7 +5,7 @@ export interface HabitProps {
 }
 
 export class Habit {
-  private props: HabitProps
+  readonly props: HabitProps
 
   constructor(props: HabitProps) {
     this.props = props

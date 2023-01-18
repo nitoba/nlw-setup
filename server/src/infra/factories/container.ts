@@ -4,6 +4,7 @@ import { GetAllHabits } from '../../app/usecases/get-all-habits'
 import { PrismaAuthRepository } from '../database/prisma/repositories/prisma-auth-repository'
 import { AuthController } from '../http/controllers/auth-controller'
 import { RegisterUser } from '../../app/usecases/register-user'
+import { CreateHabit } from '../../app/usecases/create-habit'
 
 export function authDependencies() {
   const authRepository = new PrismaAuthRepository()
@@ -15,8 +16,9 @@ export function authDependencies() {
 
 export function habitDependencies() {
   const habitRepository = new PrismaHabitsRepository()
-  const getAllHabitsUsecase = new GetAllHabits(habitRepository)
-  const habitController = new HabitController(getAllHabitsUsecase)
+  const getAllHabits = new GetAllHabits(habitRepository)
+  const createHabit = new CreateHabit(habitRepository)
+  const habitController = new HabitController(getAllHabits, createHabit)
 
   return { habitController }
 }
