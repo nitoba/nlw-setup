@@ -6,8 +6,24 @@ import { prisma } from '../../../../lib/prisma'
 import { PrismaHabitToEntity } from '../../../adapter/prisma-habit-to-habit'
 
 export class PrismaHabitsRepository implements HabitRepository {
-  possibleHabits(date: Date): Promise<Habit[]> {
-    throw new Error('Method not implemented.')
+  async possibleHabits(date: Date): Promise<Habit[]> {
+    const parsedDate = dayjs(date).startOf('day')
+    const weekDay = dayjs(parsedDate).get('day')
+    const possibleHabits = await prisma.habit.findMany({
+      where: {
+        created_at: {
+          lte: date,
+        },
+
+        WeekDays: {
+          some: {
+            week_day: weekDay,
+          },
+        },
+      },
+    })
+
+    return possibleHabits.map(PrismaHabitToEntity.toEntity)
   }
 
   async createHabit({

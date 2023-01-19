@@ -1,7 +1,7 @@
 import { Habit } from '../../../app/entities/habit'
 
 export class HabitPresenter {
-  static toView(habit: Habit) {
+  static toJson(habit: Habit) {
     return {
       id: habit.id,
       title: habit.title,

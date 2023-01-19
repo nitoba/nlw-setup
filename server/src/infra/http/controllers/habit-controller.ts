@@ -14,7 +14,7 @@ export class HabitController {
   async getAll(req: FastifyRequest, res: FastifyReply) {
     const rawHabits = await this.getAllHabits.execute()
 
-    return res.send(rawHabits.map(HabitPresenter.toView))
+    return res.send(rawHabits.map(HabitPresenter.toJson))
   }
 
   async create(req: FastifyRequest, res: FastifyReply) {
@@ -34,11 +34,13 @@ export class HabitController {
       })
 
       if (habit) {
-        return res.status(201).send(HabitPresenter.toView(habit))
+        return res.status(201).send(HabitPresenter.toJson(habit))
       }
     } catch (error) {
       if (error instanceof ZodError) {
-        return res.status(400).send({ message: error.message })
+        return res
+          .status(400)
+          .send({ message: error.errors.map((zodError) => zodError.message) })
       }
 
       return res.status(500).send({ message: 'Internal Server Error' })

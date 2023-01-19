@@ -5,6 +5,9 @@ import { PrismaAuthRepository } from '../database/prisma/repositories/prisma-aut
 import { AuthController } from '../http/controllers/auth-controller'
 import { RegisterUser } from '../../app/usecases/register-user'
 import { CreateHabit } from '../../app/usecases/create-habit'
+import { PrismaDayRepository } from '../database/prisma/repositories/prisma-day-repository'
+import { DayController } from '../http/controllers/day-controller'
+import { GetDetailsDay } from '../../app/usecases/get-details-day'
 
 export function authDependencies() {
   const authRepository = new PrismaAuthRepository()
@@ -21,4 +24,13 @@ export function habitDependencies() {
   const habitController = new HabitController(getAllHabits, createHabit)
 
   return { habitController }
+}
+
+export function dayDependencies() {
+  const habitRepository = new PrismaHabitsRepository()
+  const dayRepository = new PrismaDayRepository()
+  const getDetailsDay = new GetDetailsDay(habitRepository, dayRepository)
+  const dayController = new DayController(getDetailsDay)
+
+  return { dayController }
 }
