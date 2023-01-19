@@ -1,6 +1,7 @@
 export interface HabitProps {
   id: string
   title: string
+  weekDays?: number[]
   created_at?: Date
 }
 
@@ -24,7 +25,15 @@ export class Habit {
     return this.props.created_at
   }
 
+  get weekDays(): number[] | undefined {
+    return this.props.weekDays
+  }
+
   set title(value: string) {
     this.props.title = value
+  }
+
+  set weekDays(value: number[] | undefined) {
+    this.props.weekDays = value
   }
 }

@@ -3,9 +3,13 @@ import { CreateHabitRequest } from '../../../../app/dto/create-habit-request'
 import { Habit } from '../../../../app/entities/habit'
 import { HabitRepository } from '../../../../app/repositories/habit-repository'
 import { prisma } from '../../../../lib/prisma'
-import { PrismaHabitToEntity } from '../../../adapter/prisma-habit-to-entity'
+import { PrismaHabitToEntity } from '../../../adapter/prisma-habit-to-habit'
 
 export class PrismaHabitsRepository implements HabitRepository {
+  possibleHabits(date: Date): Promise<Habit[]> {
+    throw new Error('Method not implemented.')
+  }
+
   async createHabit({
     title,
     weekDays,

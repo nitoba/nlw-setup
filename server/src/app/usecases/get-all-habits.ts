@@ -4,7 +4,9 @@ import { HabitRepository } from '../repositories/habit-repository'
 export class GetAllHabits {
   constructor(private readonly repository: HabitRepository) {}
 
-  execute() {
-    return this.repository.getAllHabits()
+  async execute() {
+    const habits = await this.repository.getAllHabits()
+
+    return habits
   }
 }

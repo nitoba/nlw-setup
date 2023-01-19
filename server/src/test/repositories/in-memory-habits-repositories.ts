@@ -17,6 +17,24 @@ export class InMemoryHabitsRepository implements HabitRepository {
     return this.habits.find((habit) => habit.id === id)
   }
 
+  async possibleHabits(date: Date): Promise<Habit[]> {
+    const parsedDate = dayjs(date).startOf('day')
+    const weekDay = dayjs(parsedDate).get('day')
+
+    const possibleHabits = this.habits.filter((habit) => {
+      if (
+        habit.createdAt! <= date &&
+        habit.weekDays?.some((habitWeekDay) => habitWeekDay === weekDay)
+      ) {
+        return habit
+      } else {
+        return undefined
+      }
+    })
+
+    return possibleHabits
+  }
+
   async getAllHabits(): Promise<Habit[]> {
     return this.habits
   }
