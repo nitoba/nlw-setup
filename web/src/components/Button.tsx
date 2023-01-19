@@ -21,7 +21,12 @@ const buttonStyles = cva(
     variants: {
       variant: {
         primary: 'bg-green-600',
-        secondary: 'bg-transparent border-violet-500',
+        secondary: [
+          'bg-transparent',
+          'border-violet-500',
+          'enabled:hover:border-violet-300',
+        ],
+
         google: 'bg-red-500',
       },
       size: {

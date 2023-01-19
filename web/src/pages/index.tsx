@@ -1,8 +1,10 @@
-// eslint-disable-next-line camelcase
-import { unstable_getServerSession } from 'next-auth/next'
 import Head from 'next/head'
 import { GetServerSideProps } from 'next/types'
+// eslint-disable-next-line camelcase
+import { unstable_getServerSession } from 'next-auth/next'
 import { buildNextAuthOptions } from './api/auth/[...nextauth]'
+import { Header } from '@/components/Header'
+import { SummaryTable } from '@/components/SummaryTable'
 
 export default function Home() {
   return (
@@ -13,7 +15,12 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1>Hello word</h1>
+      <div className="w-screen h-screen flex items-center justify-center">
+        <div className="w-full max-w-5xl px-6 flex flex-col gap-16">
+          <Header />
+          <SummaryTable />
+        </div>
+      </div>
     </>
   )
 }
