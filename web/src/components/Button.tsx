@@ -1,5 +1,6 @@
 import { cva, type VariantProps } from 'class-variance-authority'
 import { ButtonHTMLAttributes } from 'react'
+import { Loading } from './Loading'
 
 const buttonStyles = cva(
   [
@@ -50,19 +51,28 @@ const buttonStyles = cva(
 
 export interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonStyles> {}
+    VariantProps<typeof buttonStyles> {
+  loading?: boolean
+}
 
 export function Button({
   className,
   variant,
   size,
   fullWidth,
+  loading,
+  children,
+  disabled,
   ...props
 }: ButtonProps) {
   return (
     <button
       className={buttonStyles({ variant, size, fullWidth, className })}
+      disabled={disabled || loading}
       {...props}
-    />
+    >
+      {loading && <Loading />}
+      {!loading && children}
+    </button>
   )
 }

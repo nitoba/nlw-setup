@@ -2,17 +2,20 @@ import { Plus, X } from 'phosphor-react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { Button } from './Button'
 import { NewHabitForm } from './NewHabitForm'
+import { useState } from 'react'
 
 export function Header() {
+  const [isOpen, setIsOpen] = useState(false)
+
   return (
-    <Dialog.Root>
+    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <header className="w-full max-w-3xl mx-auto flex items-center justify-between">
         <img
           src="./logo.svg"
           alt="habits logo"
           className="w-[116px] md:w-[140px]"
         />
-        <Dialog.Trigger asChild>
+        <Dialog.Trigger asChild onClick={() => setIsOpen(true)}>
           <Button variant="secondary" className="hidden md:flex">
             <Plus className="text-violet-500" />
             Novo Hábito
@@ -53,7 +56,7 @@ export function Header() {
           <Dialog.Title className="font-extrabold text-3xl leading-tight">
             Criar Hábito
           </Dialog.Title>
-          <NewHabitForm />
+          <NewHabitForm onSubmitted={() => setIsOpen(false)} />
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

@@ -39,13 +39,13 @@ export class HabitController {
         return res.status(201).send(HabitPresenter.toJson(habit))
       }
     } catch (error) {
+      console.error(error)
       if (error instanceof ZodError) {
         return res
           .status(400)
           .send({ message: error.errors.map((zodError) => zodError.message) })
       }
 
-      return res.status(500).send({ message: 'Internal Server Error' })
     }
   }
 

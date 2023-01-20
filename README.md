@@ -12,3 +12,5 @@
     - [X] - Autenticação com o Google usando NextAuth
     - [X] - Animaçãoes Css com tailwind
     - [X] - Componentes com variantes utilizando class-variance-authority (cva)
+    - [X] - Validação de formulario com React Hook Form e Zod
+    - [X] - Mensagem toast personalizada quando após criação de um novo hábito

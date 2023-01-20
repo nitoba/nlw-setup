@@ -29,7 +29,7 @@ export function buildNextAuthOptions(
       async signIn({ user, account }) {
         if (user) {
           const response = await fetch(
-            `${process.env.BASE_URL}/auth/register`,
+            `${process.env.NEXT_PUBLIC_BASE_URL}/auth/register`,
             {
               method: 'POST',
               headers: {
