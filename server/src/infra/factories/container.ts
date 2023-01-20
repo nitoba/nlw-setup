@@ -9,6 +9,9 @@ import { PrismaDayRepository } from '../database/prisma/repositories/prisma-day-
 import { DayController } from '../http/controllers/day-controller'
 import { GetDetailsDay } from '../../app/usecases/get-details-day'
 import { ToggleHabit } from '../../app/usecases/toggle-habit'
+import { PrismaSummaryRepository } from '../database/prisma/repositories/prisma-summary-repository'
+import { GetSummary } from '../../app/usecases/get-summary'
+import { SummaryController } from '../http/controllers/summary-controller'
 
 export function authDependencies() {
   const authRepository = new PrismaAuthRepository()
@@ -40,4 +43,12 @@ export function dayDependencies() {
   const dayController = new DayController(getDetailsDay)
 
   return { dayController }
+}
+
+export function summaryDayDependencies() {
+  const summaryRepository = new PrismaSummaryRepository()
+  const getSummary = new GetSummary(summaryRepository)
+  const summaryController = new SummaryController(getSummary)
+
+  return { summaryController }
 }

@@ -11,6 +11,9 @@ const secondHabitCreationDate = new Date('2023-01-03T03:00:00.000')
 const thirdHabitId = 'fa1a1bcf-3d87-4626-8c0d-d7fd1255ac00'
 const thirdHabitCreationDate = new Date('2023-01-08T03:00:00.000')
 
+const fourthHabitId = 'fa1a1bcf-3d87-4626-8c0d-d7fd1255ac00'
+const fourthHabitCreationDate = new Date('2023-01-18T03:00:00.000Z')
+
 export function seed() {
   const habits = [
     new Habit({
@@ -30,6 +33,12 @@ export function seed() {
       title: 'Dormir 8h',
       created_at: thirdHabitCreationDate,
       weekDays: [1, 2, 3, 4, 5],
+    }),
+    new Habit({
+      id: fourthHabitId,
+      title: 'Estudar Rust',
+      created_at: fourthHabitCreationDate,
+      weekDays: [1, 2, 4],
     }),
   ]
 
