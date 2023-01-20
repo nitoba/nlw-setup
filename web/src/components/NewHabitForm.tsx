@@ -38,7 +38,7 @@ export function NewHabitForm() {
         </div>
       </div>
 
-      <Button variant="primary" type="submit" fullWidth>
+      <Button variant="primary" type="submit" fullWidth size="md">
         <Check size={20} weight="bold" />
         Confirmar
       </Button>

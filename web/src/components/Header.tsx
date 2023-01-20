@@ -7,11 +7,22 @@ export function Header() {
   return (
     <Dialog.Root>
       <header className="w-full max-w-3xl mx-auto flex items-center justify-between">
-        <img src="./logo.svg" alt="habits logo" />
+        <img
+          src="./logo.svg"
+          alt="habits logo"
+          className="w-[116px] md:w-[140px]"
+        />
         <Dialog.Trigger asChild>
-          <Button variant="secondary">
+          <Button variant="secondary" className="hidden md:flex">
             <Plus className="text-violet-500" />
             Novo Hábito
+          </Button>
+        </Dialog.Trigger>
+
+        <Dialog.Trigger asChild>
+          <Button variant="secondary" className="flex md:hidden">
+            <Plus className="text-violet-500" />
+            Novo
           </Button>
         </Dialog.Trigger>
       </header>
@@ -26,10 +37,13 @@ export function Header() {
             translate-x-[-50%]
             translate-y-[-50%]
             z-[51]
-            w-full
+            md:w-full
+            w-[90%]
             max-w-md
             rounded-2xl
-            p-10
+            md:p-10
+            p-4
+            py-5
             animate-show
           bg-zinc-900"
         >

@@ -16,6 +16,8 @@ const buttonStyles = cva(
     'transition-all',
     'disabled:cursor-not-allowed',
     'disabled:opacity-50',
+    'text-sm py-2 px-3',
+    'md:text-base md:py-4 md:px-6',
   ],
   {
     variants: {
@@ -41,7 +43,6 @@ const buttonStyles = cva(
 
     defaultVariants: {
       variant: 'primary',
-      size: 'md',
       fullWidth: false,
     },
   },
