@@ -9,4 +9,5 @@ export const HabitRoutes = async (
 ) => {
   app.get('/', (req, res) => habitController.getAll(req, res))
   app.post('/', (req, res) => habitController.create(req, res))
+  app.patch('/:id/toggle', (req, res) => habitController.toggle(req, res))
 }

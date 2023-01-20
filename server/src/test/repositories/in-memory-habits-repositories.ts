@@ -38,4 +38,8 @@ export class InMemoryHabitsRepository implements HabitRepository {
   async getAllHabits(): Promise<Habit[]> {
     return this.habits
   }
+
+  toggleHabit(id: string): Promise<boolean> {
+    throw new Error('Method not implemented.')
+  }
 }

@@ -3,12 +3,14 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 import { z, ZodError } from 'zod'
 import { CreateHabit } from '../../../app/usecases/create-habit'
 import { GetAllHabits } from '../../../app/usecases/get-all-habits'
+import { ToggleHabit } from '../../../app/usecases/toggle-habit'
 import { HabitPresenter } from '../presenter/habit-to-view'
 
 export class HabitController {
   constructor(
     private readonly getAllHabits: GetAllHabits,
     private readonly createHabit: CreateHabit,
+    private readonly toggleHabit: ToggleHabit,
   ) {}
 
   async getAll(req: FastifyRequest, res: FastifyReply) {
@@ -41,6 +43,27 @@ export class HabitController {
         return res
           .status(400)
           .send({ message: error.errors.map((zodError) => zodError.message) })
+      }
+
+      return res.status(500).send({ message: 'Internal Server Error' })
+    }
+  }
+
+  async toggle(req: FastifyRequest, res: FastifyReply) {
+    const toggleHabitParams = z.object({
+      id: z.string().uuid({ message: 'Invalid habit id!' }),
+    })
+
+    try {
+      const { id } = toggleHabitParams.parse(req.params)
+      await this.toggleHabit.execute(id)
+
+      return res.send()
+    } catch (error) {
+      if (error instanceof ZodError) {
+        return res.status(400).send({
+          message: error.errors.at(0)?.message,
+        })
       }
 
       return res.status(500).send({ message: 'Internal Server Error' })
