@@ -1,21 +1,21 @@
 import * as Popover from '@radix-ui/react-popover'
-import { ProgressBar } from './ProgressBar'
 import clsx from 'clsx'
-import { CheckBox } from './CheckBox'
 import dayjs from 'dayjs'
+import { HabitsPopover } from './HabitDayPopover'
+import { ProgressBar } from './ProgressBar'
 
 type Props = {
   amount?: number
-  completed?: number
+  defaultCompleted?: number
   date: Date
 }
 
-export function HabitDay({ amount = 0, completed = 0, date }: Props) {
-  const completedPercentage =
-    amount > 0 ? Math.round((completed / amount) * 100) : 0
-
+export function HabitDay({ amount = 0, defaultCompleted = 0, date }: Props) {
   const dayAndMonth = dayjs(date).format('DD/MM')
   const dayOfWeek = dayjs(date).format('dddd')
+
+  const completedPercentage =
+    amount > 0 ? Math.round((defaultCompleted / amount) * 100) : 0
 
   return (
     <Popover.Root>
@@ -43,12 +43,9 @@ export function HabitDay({ amount = 0, completed = 0, date }: Props) {
             <span className="text-3xl font-extrabold mt-2 leading-tight">
               {dayAndMonth}
             </span>
-            <ProgressBar progress={40} />
+            <ProgressBar progress={completedPercentage} />
           </header>
-          <div className="flex flex-col gap-3 mt-6">
-            <CheckBox labelText={'2L de água'} weight="bold" />
-            <CheckBox labelText={'Alimentação saudável'} weight="bold" />
-          </div>
+          <HabitsPopover date={date} />
           <Popover.Arrow className="fill-zinc-900 w-4 h-2" />
         </Popover.Content>
       </Popover.Portal>

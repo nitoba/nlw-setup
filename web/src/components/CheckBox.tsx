@@ -7,9 +7,17 @@ type Props = Checkbox.CheckboxProps & {
   weight?: 'bold' | 'regular'
 }
 
-export function CheckBox({ labelText, weight, ...props }: Props) {
+export function CheckBox({ labelText, weight, disabled, ...props }: Props) {
   return (
-    <label className="flex gap-3 items-center hover:opacity-90 transition-opacity cursor-pointer select-none">
+    <label
+      className={clsx(
+        'flex gap-3 items-center transition-opacity cursor-pointer select-none',
+        {
+          'opacity-60 cursor-not-allowed': disabled,
+          'hover:opacity-90': !disabled,
+        },
+      )}
+    >
       <Checkbox.Root
         className="
         flex
@@ -23,8 +31,11 @@ export function CheckBox({ labelText, weight, ...props }: Props) {
         data-[state=checked]:border-green-500
         transition-all
         border-zinc-800
-        hover:brightness-90
+        enabled:hover:brightness-90
+        disabled:cursor-not-allowed
+        disabled:opacity-60
         bg-zinc-900"
+        disabled={disabled}
         {...props}
       >
         <Checkbox.Indicator className="animate-show delay-700">
