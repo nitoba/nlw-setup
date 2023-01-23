@@ -22,7 +22,7 @@ This project was developed using the following technologies:
 
 - [ReactJS](https://reactjs.org/)
 - [CVA](https://github.com/joe-bell/cva)
-- [NextJS]https://nextjs.org/)
+- [NextJS](https://nextjs.org/)
 - [NodeJS](https://nodejs.org/en/)
 - [Fastify](https://www.fastify.io/)
 - [Prisma](https://www.prisma.io/)
